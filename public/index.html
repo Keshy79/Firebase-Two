@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="SignG()">Sign in with Google</button>
+  <div id="show"></div>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCCEA3y88PPii2A5L5HtoSPYibmpOt4K-s",
+      authDomain: "project-two-743dc.firebaseapp.com",
+      projectId: "project-two-743dc",
+      storageBucket: "project-two-743dc.appspot.com",
+      messagingSenderId: "320682972923",
+      appId: "1:320682972923:web:fd014ee1d77ff36756c25e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const  SignG = () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          if(user){
+            window.location.href ='dashboard.html'
+          }
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        });
+
+    }
+    window.SignG = SignG
+
+    // Initialize Firebase,
+  
+
+  </script>
+</body>
+
+</html>

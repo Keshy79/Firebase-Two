@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="col-7 ">
+        
+    <h1>Welcome to my dashboard</h1>
+    <div id="show"></div>
+    <button onclick="signO()" class="btn btn-danger ">SignOut</button>
+
+    <div class="my-3 shadow-sm p-3 mx-auto text-center ">
+        <input type="text" class="form-control my-3" id="todo">
+        <input type="text" class="form-control my-3" id="todoDoc">
+    </div>
+    
+
+    <button onclick="subTodo()" class="btn btn-info">Submit</button>
+    </div>
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase,ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCEA3y88PPii2A5L5HtoSPYibmpOt4K-s",
+            authDomain: "project-two-743dc.firebaseapp.com",
+            projectId: "project-two-743dc",
+            storageBucket: "project-two-743dc.appspot.com",
+            messagingSenderId: "320682972923",
+            appId: "1:320682972923:web:fd014ee1d77ff36756c25e",
+            databaseURL: "https://project-two-743dc-default-rtdb.firebaseio.com",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app)
+      
+        onAuthStateChanged(auth,(user)=>{
+            if(user){
+                const uid = user.uid;
+                console.log(`user is signed in ${uid}`);
+                console.log(user);
+                show.innerHTML = `
+                 <h1>Welcome, ${user.displayName}</h1>
+                 <h1>Here is your email ${user.email}</h1>
+                 profile picture <img src ="${user.photoURL}" alt= "profile pix"/>
+                `
+            }else{
+                console.log('user is signed out');
+                window.location.href = 'index.html'
+            }
+        })
+
+        const signO = () => {
+            signOut(auth)
+            .then(()=>{console.log('out with you, o devilish user');})
+            .catch(()=>{console.log('user is possessed, not going out anutime soon');})
+        }
+        window.signO = signO
+
+        const subTodo = () =>{
+            let inputOne = document.getElementById('tode').value
+            let inputTwo = document.getElementById('todoDoc').value
+
+            if(inputOne === '' || inputTwo === '')
+                alert('write something inside me')
+        }else{
+            let obj ={Time,Date,inputOne, inputTwo}
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>
